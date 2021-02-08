@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/sign_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="Name"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"/>
+
+    <EditText
+        android:id="@+id/sign_mob"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="Mobile"
+        android:inputType="number"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+
+    <EditText
+        android:id="@+id/sign_regno"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="Regno"
+        android:inputType="textCapSentences"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/sign_email"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/sign_dept"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="Department"
+        android:inputType="textCapSentences"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/sign_year"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="Year of Study"
+        android:inputType="number"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/sign_batch"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="Batch"
+        android:inputType="number"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/sign_passwd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/sign_cpass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/l_bg"
+        android:layout_marginLeft="20dp"
+        android:hint="conform password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:background="@drawable/l_bg"
+        android:layout_gravity="right"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"/>
+
+
+
+</LinearLayout>

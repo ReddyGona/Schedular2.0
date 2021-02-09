@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Schedular20"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".OtherActivity" />
+        <activity android:name=".ClassesActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

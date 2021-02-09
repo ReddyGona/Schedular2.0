@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/HOME"
+        android:title="MyDay"
+        android:icon="@drawable/ic_baseline_edit_attributes_24"/>
+    <item android:id="@+id/CLASSES"
+        android:icon="@drawable/ic_baseline_video_label_24"
+        android:title="MyClasses"/>
+    <item android:title="Others"
+        android:id="@+id/OTHERS"
+        android:icon="@drawable/ic_baseline_attractions_24"/>
+    <item android:id="@+id/PROFILE"
+        android:title="Profile"
+        android:icon="@drawable/ic_baseline_supervised_user_circle_24"/>
+
+</menu>

@@ -2,6 +2,7 @@ package com.ReddyGona.schedular20;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,18 +37,29 @@ public class MainActivity extends AppCompatActivity {
     //for signup
     EditText name_si, email_si, mobile_si, dept_si, reg_si, year_si, batch_si, password_si, cpassword_si;
     //for storing data to shared preferances
-    String name_s, email_s, mobile_s, regno_s, department_s, year_s, batch_s;
+    String name_s, email_s, mobile_s, regno_s, department_s, year_s, batch_s, pass_s;
     //shared preferances
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor MyEdit;
 
+    ProgressDialog progressDialog;
 
-    String login_api="";
+
+    String login_api="https://oakspro.com/projects/project40/janardhan/Schedular2/sign_in.php";
+    String api_signup="https://oakspro.com/projects/project40/janardhan/Schedular2/sign_up.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCanceledOnTouchOutside(false);
+
+
 
         sharedPreferences=getSharedPreferences("Users",MODE_PRIVATE);
         MyEdit=sharedPreferences.edit();
@@ -62,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 bottomSheetDialog.setContentView(R.layout.bottom_sheet_signup);
                 bottomSheetDialog.setCanceledOnTouchOutside(false);
 
+                Button submit_btn;
+
 
                 name_si=bottomSheetDialog.findViewById(R.id.sign_name);
                 email_si=bottomSheetDialog.findViewById(R.id.sign_email);
@@ -72,14 +86,51 @@ public class MainActivity extends AppCompatActivity {
                 batch_si=bottomSheetDialog.findViewById(R.id.sign_batch);
                 password_si=bottomSheetDialog.findViewById(R.id.sign_passwd);
                 cpassword_si=bottomSheetDialog.findViewById(R.id.sign_cpass);
+                submit_btn=bottomSheetDialog.findViewById(R.id.sign_btn_btn);
 
-                year_si.setText("3rd year");
+                submit_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+
+                            String name = name_si.getText().toString();
+                            String email = email_si.getText().toString();
+                            String mob = mobile_si.getText().toString();
+                            String dept = dept_si.getText().toString().toUpperCase();
+                            String reg = reg_si.getText().toString().toUpperCase();
+                            String year = year_si.getText().toString();
+                            String batch = batch_si.getText().toString();
+                            String password = password_si.getText().toString();
+                            String c_pass=cpassword_si.getText().toString();
+
+
+
+                        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(mob) && !TextUtils.isEmpty(dept) &&
+                                !TextUtils.isEmpty(reg) && !TextUtils.isEmpty(year) && !TextUtils.isEmpty(batch) && !TextUtils.isEmpty(password) ){
+
+
+                            if (Character.isAlphabetic(reg.charAt(0)) && Character.isAlphabetic(reg.charAt(1)) && Character.isAlphabetic(reg.charAt(2)) &&
+                                    Character.isDigit(reg.charAt(3)) &&  Character.isDigit(reg.charAt(4)) && Character.isAlphabetic(reg.charAt(5)) && Character.isAlphabetic(reg.charAt(6))
+                                    && Character.isDigit(reg.charAt(7)) && Character.isDigit(reg.charAt(8)) && Character.isDigit(reg.charAt(9)) ){
+
+                                if (c_pass.equals(password)){
+
+                                    signupfunction(name, email, mob, dept, reg, year, batch, password);
+                                }else{
+                                    Toast.makeText(MainActivity.this, "Password and conform password did not match", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+                                reg_si.setError("Invalid regno");
+                            }
+                        }else{
+                            Toast.makeText(MainActivity.this, "Please Fill all the details", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
                 bottomSheetDialog.show();
-
-
             }
         });
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,10 +148,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         String s_uname=l_Uname.getText().toString();
-                        String s_pass=l_Pass.getText().toString();
+                        String s_passwwd=l_Pass.getText().toString();
                         
-                        if (!TextUtils.isEmpty(s_uname) && !TextUtils.isEmpty(s_pass)){
-                            loginprocess(s_uname, s_pass);
+                        if (!TextUtils.isEmpty(s_uname) && !TextUtils.isEmpty(s_passwwd)){
+                            loginprocess(s_uname, s_passwwd);
                         }else{
                             Toast.makeText(MainActivity.this, "Enter credentials", Toast.LENGTH_SHORT).show();
                         }
@@ -115,19 +166,67 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loginprocess(String s_uname, String s_pass) {
+    private void signupfunction(String name_e, String email_e, String mob_e, String dept_e,  String reg_e, String year_e, String batch_e, String password_e) {
 
-        StringRequest loginrequest= new StringRequest(Request.Method.POST, login_api, new Response.Listener<String>() {
+        progressDialog.show();
+        
+        StringRequest signupreq=new StringRequest(Request.Method.POST, api_signup, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject=new JSONObject(response);
-                    String status=jsonObject.getString("status");
+                    String status =jsonObject.getString("status");
                     if (status.equals("1")){
-                        JSONArray jsonArray=jsonObject.getJSONArray("ldetails");
-                        for (int i=0; i<jsonArray.length(); i++){
-                            JSONObject object=jsonArray.getJSONObject(i);
+                        Toast.makeText(MainActivity.this, "Registration Successful, Please Login", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+                }
 
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> upload = new HashMap<>();
+                upload.put("name", name_e);
+                upload.put("email", email_e);
+                upload.put("mobile", mob_e);
+                upload.put("dept", dept_e);
+                upload.put("regno", reg_e);
+                upload.put("year", year_e);
+                upload.put("batch", batch_e);
+                upload.put("password", password_e);
+                return upload;
+            }
+        };
+        RequestQueue requestQueue=Volley.newRequestQueue(this);
+        requestQueue.add(signupreq);
+        
+    }
+
+    private void loginprocess(String uuname, String uupass) {
+        StringRequest loginreq= new StringRequest(Request.Method.POST, login_api, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success= jsonObject.getString("success").toString();
+                    JSONArray jsonArray = jsonObject.getJSONArray("login");
+
+                    if (success.equals("1")){
+
+                        for (int i=0; i<jsonArray.length(); i++){
+                            JSONObject object = jsonArray.getJSONObject(i);
                             name_s=object.getString("name");
                             email_s=object.getString("email");
                             mobile_s=object.getString("mobile");
@@ -135,43 +234,61 @@ public class MainActivity extends AppCompatActivity {
                             department_s=object.getString("dept");
                             year_s=object.getString("year");
                             batch_s=object.getString("batch");
-
+                            pass_s=object.getString("password");
                         }
+                       
+                        
 
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                        MyEdit.putString("s_name", name_s);
-                        MyEdit.putString("s_email", email_s);
-                        MyEdit.putString("s_mobile", mobile_s);
-                        MyEdit.putString("s_regno", regno_s);
-                        MyEdit.putString("s_dept", department_s);
-                        MyEdit.putString("s_year", year_s);
-                        MyEdit.putString("s_batch", batch_s);
+                        MyEdit.putString("p_name", name_s);
+                        MyEdit.putString("p_email", email_s);
+                        MyEdit.putString("p_mobile", mobile_s);
+                        MyEdit.putString("p_regno", regno_s);
+                        MyEdit.putString("p_dept", department_s);
+                        MyEdit.putString("p_year", year_s);
+                        MyEdit.putString("p_batch", batch_s);
+                        MyEdit.putString("p_passwd", pass_s);
                         MyEdit.putBoolean("loginS", true);
                         MyEdit.commit();
                         startActivity(intent);
                         finish();
+
+
+                    }else {
+
+                        Toast.makeText(MainActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }
 
-                } catch (JSONException e) {
+                }catch (JSONException e){
+
                     e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Json Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+
+
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(MainActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+
+
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> upload = new HashMap<>();
-                upload.put("uname", s_uname);
-                upload.put("upass", s_pass);
+                upload.put("user", uuname);
+                upload.put("passwd", uupass);
+
                 return upload;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-        requestQueue.add(loginrequest);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(loginreq);
 
     }
 }

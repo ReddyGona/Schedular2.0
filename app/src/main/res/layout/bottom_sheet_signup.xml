@@ -39,7 +39,6 @@
         android:background="@drawable/l_bg"
         android:layout_marginLeft="20dp"
         android:hint="Regno"
-        android:inputType="textCapSentences"
         android:textColorHint="@color/black"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
@@ -66,7 +65,9 @@
         android:layout_height="50dp"
         android:background="@drawable/l_bg"
         android:layout_marginLeft="20dp"
-        android:hint="Department"
+        android:hint="Department eg : (CSE)"
+        android:maxLength="10"
+        android:textAllCaps="true"
         android:inputType="textCapSentences"
         android:textColorHint="@color/black"
         android:paddingLeft="10dp"
@@ -82,6 +83,7 @@
         android:layout_marginLeft="20dp"
         android:hint="Year of Study"
         android:inputType="number"
+        android:maxLength="1"
         android:textColorHint="@color/black"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
@@ -96,6 +98,7 @@
         android:layout_marginLeft="20dp"
         android:hint="Batch"
         android:inputType="number"
+        android:maxLength="1"
         android:textColorHint="@color/black"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
@@ -131,6 +134,7 @@
         android:layout_marginTop="20dp"/>
 
     <Button
+        android:id="@+id/sign_btn_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"

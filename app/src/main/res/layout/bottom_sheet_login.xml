@@ -9,7 +9,7 @@
         android:layout_height="50dp"
         android:background="@drawable/l_bg"
         android:layout_marginLeft="20dp"
-        android:hint="User Name"
+        android:hint="Mobile Number"
         android:textColorHint="@color/black"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
